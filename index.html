@@ -21,6 +21,7 @@
 	$('#ubicacion').val(idUbicacion);
 	$('#registrado').hide();
 	
+
 	
 	
     
@@ -32,27 +33,57 @@
         url = 'https://script.google.com/macros/s/AKfycbzQodAktAoaPO8UZFW5YO1UdArzcavOjeShJK7ncQJ_mZoE7fs/exec'
       e.preventDefault();
 	  
+	  var pos = '';
 	  if($('#nombre').val() != ''){
-		console.log('VALOR INGRESADO');
-		var jsonObject = {
-		  nombre: $('#nombre').val(),
-		  ubicacion: idUbicacion
-	    }
-	    console.log('jsonObject: '+jsonObject);
-	  
-	    var jqxhr = $.ajax({
-          url: url,
-          method: "GET",
-          dataType: "json",
-          data: jsonObject
-        });
-        jqxhr.done(function(msg) {
-          console.log( '1_' +msg );
-	    
-	      $('form#test-form').hide();
-	      $('#registrado').show();
-		  window.location = 'exito.html';
-        });
+	    if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((pos)=>{
+		    
+			
+			console.log('VALOR INGRESADO');
+		    var jsonObject = {
+		      nombre: $('#nombre').val(),
+		      ubicacion: idUbicacion,
+			  latitude: pos.coords.latitude,
+			  longitude: pos.coords.longitude
+	        }
+	        console.log('jsonObject: '+jsonObject);
+	        
+	        var jqxhr = $.ajax({
+              url: url,
+              method: "GET",
+              dataType: "json",
+              data: jsonObject
+            });
+            jqxhr.done(function(msg) {
+              console.log( '1_' +msg );
+	        
+	          $('form#test-form').hide();
+	          $('#registrado').show();
+		      window.location = 'exito.html';
+            });
+		  });
+        } else {
+		  console.log('VALOR INGRESADO');
+		  var jsonObject = {
+		    nombre: $('#nombre').val(),
+		    ubicacion: idUbicacion
+	      }
+	      console.log('jsonObject: '+jsonObject);
+	      
+	      var jqxhr = $.ajax({
+            url: url,
+            method: "GET",
+            dataType: "json",
+            data: jsonObject
+          });
+          jqxhr.done(function(msg) {
+            console.log( '1_' +msg );
+	      
+	        $('form#test-form').hide();
+	        $('#registrado').show();
+		    window.location = 'exito.html';
+          });
+		}
 	  }
   	  
     });

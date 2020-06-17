@@ -15,6 +15,7 @@
 	let searchParams = new URLSearchParams(window.location.search);
 	let idPiscina = searchParams.get('idPiscina');
 	let idUbicacion = searchParams.get('idPiscina');
+	let actividad = searchParams.get('actividad');
 	console.log('idPiscina: '+idPiscina);
 	console.log('idUbicacion: '+idPiscina);
     $('#idPiscina').text(idPiscina);
@@ -26,11 +27,11 @@
 	
     
 	var $form = $('form#test-form'),
-      url = 'https://script.google.com/macros/s/abcdefghijklmnopqrstuvwxyz1234567890/exec'
+      url = 'https://script.google.com/macros/s/AKfycbz_dNOxHCtE6y-Mgi16YPQ_mpi99ueQRns683ZtiNhOsoBp8Qo/exec'
     $("#submit-form").click(function(e){
       $("#submit-form").prop('disabled', true);
 	  var $form = $('form#test-form'),
-        url = 'https://script.google.com/macros/s/AKfycbzQodAktAoaPO8UZFW5YO1UdArzcavOjeShJK7ncQJ_mZoE7fs/exec'
+        url = 'https://script.google.com/macros/s/AKfycbz_dNOxHCtE6y-Mgi16YPQ_mpi99ueQRns683ZtiNhOsoBp8Qo/exec'
       e.preventDefault();
 	  
 	  var pos = '';
@@ -38,13 +39,13 @@
 	    if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((pos)=>{
 		    
-			
 			console.log('VALOR INGRESADO');
 		    var jsonObject = {
 		      nombre: $('#nombre').val(),
 		      ubicacion: idUbicacion,
 			  latitude: pos.coords.latitude,
-			  longitude: pos.coords.longitude
+			  longitude: pos.coords.longitude,
+			  actividad: actividad
 	        }
 	        console.log('jsonObject: '+jsonObject);
 	        
